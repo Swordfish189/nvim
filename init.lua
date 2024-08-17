@@ -153,6 +153,18 @@ vim.g.mapleader = " "
 -- Setup lazy.nvim
 require("lazy").setup({
 	spec = {
+		{
+			"LazyVim/LazyVim",
+			import = "lazyvim.plugins",
+			config = function()
+				-- Here, you can override LazyVim's keymaps or set your own
+				vim.api.nvim_set_keymap("n", "<C-_>", "gcc", { noremap = true, silent = true })
+				vim.api.nvim_set_keymap("x", "<C-_>", "gc", { noremap = true, silent = true })
+
+				-- You can also remove or change any other keymaps set by LazyVim
+				-- Example: vim.api.nvim_del_keymap('n', '<leader>gs') -- To remove a specific keymap
+			end,
+		},
 		--{ "LazyVim/LazyVim", import = "lazyvim.plugins" },
 		--{ import = "lazyvim.plugins.extras.formatting.black" },
 		--{ import = "plugins" },
@@ -183,27 +195,33 @@ require("lazy").setup({
 		"theprimeagen/harpoon",
 		"mbbill/undotree",
 		"tpope/vim-fugitive",
-        {
-            'numToStr/Comment.nvim',
-            opts = {
-                -- Comment.nvim setup options
-                mappings = {
-                    -- Basic mappings that can be enabled/disabled individually
-                    basic = true,
-                    extra = false,
-                },
-                -- Set key mappings here
-                -- Ensure the keybinding matches the system's interpretation of <C-_>
-                toggler = {
-                    line = '<C-_>',  -- Toggle comment for a line in normal mode
-                    block = 'gbc',   -- Toggle comment for a block in normal mode (optional)
-                },
-                opleader = {
-                    line = '<C-_>',  -- Toggle comment for lines in visual mode
-                    block = 'gb',    -- Toggle comment for a block in visual mode (optional)
-                },
-            }
-        },
+		{
+			"numToStr/Comment.nvim",
+			opts = {
+				-- Comment.nvim setup options
+				mappings = {
+					-- Basic mappings that can be enabled/disabled individually
+					basic = true,
+					extra = false,
+				},
+				-- Set key mappings here
+				-- Ensure the keybinding matches the system's interpretation of <C-_>
+				toggler = {
+					line = "<C-_>", -- Toggle comment for a line in normal mode
+					block = "gbc", -- Toggle comment for a block in normal mode (optional)
+				},
+				opleader = {
+					line = "<C-_>", -- Toggle comment for lines in visual mode
+					block = "gb", -- Toggle comment for a block in visual mode (optional)
+				},
+				-- config = function(_, opts)
+				-- 	require("Comment").setup(opts)
+				-- 	-- Ensure remap happens after Comment.nvim and LazyVim are loaded
+				-- 	vim.api.nvim_set_keymap("n", "<C-_>", "gcc", { noremap = true, silent = true })
+				-- 	vim.api.nvim_set_keymap("x", "<C-_>", "gc", { noremap = true, silent = true })
+				-- end,
+			},
+		},
 
 		-- LSP and Autocompletion
 		{ "VonHeikemen/lsp-zero.nvim", branch = "v4.x" },
