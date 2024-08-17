@@ -111,6 +111,13 @@ require("nvim-treesitter.configs").setup({
 -- UndoTree
 vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 
+-- Comment
+-- Comment.nvim setup
+-- require('Comment').setup()
+-- Key mappings for toggling comments
+-- vim.api.nvim_set_keymap('n', '<C-//>', 'gcc', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('v', '<C-//>', 'gc', { noremap = true, silent = true })
+
 -- Misc settings
 vim.opt.guicursor = ""
 
@@ -146,9 +153,9 @@ vim.g.mapleader = " "
 -- Setup lazy.nvim
 require("lazy").setup({
 	spec = {
-		{ "LazyVim/LazyVim", import = "lazyvim.plugins" },
-		{ import = "lazyvim.plugins.extras.formatting.black" },
-		{ import = "plugins" },
+		--{ "LazyVim/LazyVim", import = "lazyvim.plugins" },
+		--{ import = "lazyvim.plugins.extras.formatting.black" },
+		--{ import = "plugins" },
 		-- Telescope
 		{
 			"nvim-telescope/telescope.nvim",
@@ -176,6 +183,27 @@ require("lazy").setup({
 		"theprimeagen/harpoon",
 		"mbbill/undotree",
 		"tpope/vim-fugitive",
+        {
+            'numToStr/Comment.nvim',
+            opts = {
+                -- Comment.nvim setup options
+                mappings = {
+                    -- Basic mappings that can be enabled/disabled individually
+                    basic = true,
+                    extra = false,
+                },
+                -- Set key mappings here
+                -- Ensure the keybinding matches the system's interpretation of <C-_>
+                toggler = {
+                    line = '<C-_>',  -- Toggle comment for a line in normal mode
+                    block = 'gbc',   -- Toggle comment for a block in normal mode (optional)
+                },
+                opleader = {
+                    line = '<C-_>',  -- Toggle comment for lines in visual mode
+                    block = 'gb',    -- Toggle comment for a block in visual mode (optional)
+                },
+            }
+        },
 
 		-- LSP and Autocompletion
 		{ "VonHeikemen/lsp-zero.nvim", branch = "v4.x" },
